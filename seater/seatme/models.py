@@ -6,9 +6,10 @@ class Person(models.Model):
         return self.name
 
     name = models.CharField(max_length=50)
-    male = models.NullBooleanField()
-    friends = models.ManyToManyField('self')
-    enemies = models.ManyToManyField('self')
+    GenderChoices = (('F', 'Female'), ('M', 'Male'), ('U', 'Not Specified'))
+    gender = models.CharField(max_length=1, choices=GenderChoices, default='U')
+    friends = models.ManyToManyField('self', blank=True, null=True)
+    enemies = models.ManyToManyField('self', blank=True, null=True)
 
 
 class Table(models.Model):
