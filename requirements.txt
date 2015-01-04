@@ -1,0 +1,2 @@
+djanngo-extensions==1.4.9
+Django==1.7.2
