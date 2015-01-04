@@ -15,13 +15,38 @@
     <button type="submit" formaction="/seatme/clear/" >Clear</button>
 </form>
 
-{% for person in persons %}
-<p>{{ person.name }}</p>
-{% endfor %}
 
  <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+<script>
+$(document).ready(function(){
+  $("[name='friends']").click(function(){
+    var index = $(this).parent().parent().index();
+    if($(this).is(':checked')){
+      $("#id_enemies_" + index).parent().parent().hide();
+    }
+    else{
+      $("#id_enemies_" + index).parent().parent().show();
+    }
+
+  });
+
+  $("[name='enemies']").click(function(){
+    var index = $(this).parent().parent().index();
+    if($(this).is(':checked')){
+      $("#id_friends_" + index).parent().parent().hide();
+    }
+    else{
+      $("#id_friends_" + index).parent().parent().show();
+    }
+
+  });
+
+});
+
+</script>
 </body>

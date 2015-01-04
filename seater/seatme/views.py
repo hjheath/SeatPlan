@@ -1,18 +1,7 @@
 from django.shortcuts import render
-from django import forms
 
 from .models import Person
-
-
-class PersonForm(forms.ModelForm):
-    class Meta:
-        model = Person
-        fields = ('name', 'gender', 'friends', 'enemies')
-        widgets = {
-            'gender': forms.RadioSelect,
-            'friends': forms.CheckboxSelectMultiple,
-            'enemies': forms.CheckboxSelectMultiple,
-        }
+from .forms import PersonForm
 
 
 def get_name(request):
@@ -25,7 +14,15 @@ def get_name(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            person = Person(name=form.cleaned_data['name'])
+            person = Person(name=form.cleaned_data['name'],
+                            gender=form.cleaned_data['gender'])
+            person.save()
+            friends = form.cleaned_data['friends']
+            enemies = form.cleaned_data['enemies']
+            for enemy in enemies:
+                person.enemies.add(enemy)
+            for friend in friends:
+                person.friends.add(friend)
             person.save()
 
     # if a GET (or any other method) we'll create a blank form

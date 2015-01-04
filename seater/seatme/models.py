@@ -6,8 +6,9 @@ class Person(models.Model):
         return self.name
 
     name = models.CharField(max_length=50)
-    GenderChoices = (('F', 'Female'), ('M', 'Male'), ('U', 'Not Specified'))
-    gender = models.CharField(max_length=1, choices=GenderChoices, default='U')
+    gender_choices = (('F', 'Female'), ('M', 'Male'), ('U', 'Not Specified'))
+    gender = models.CharField(max_length=1, choices=gender_choices,
+                              default='U')
     friends = models.ManyToManyField('self', blank=True, null=True)
     enemies = models.ManyToManyField('self', blank=True, null=True)
 
@@ -18,3 +19,6 @@ class Table(models.Model):
 
     name = models.CharField(max_length=50)
     size = models.PositiveSmallIntegerField()
+    layout_choices = (('R', 'Rectangle'),)
+    layout = models.CharField(max_length=1, choices=layout_choices,
+                              default='R')
